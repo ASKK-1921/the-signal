@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="Description" content="NodeJs Template" />
+		<meta name="format-detection" content="telephone=no" />
+		<title>NodeJs Template | <%= title %></title>
+		<link type="image/x-icon" rel="shortcut icon" href="/img/favicon.ico" />
+		<link rel="stylesheet" href="/css/error.min.css" />
+	</head>
+
+	<body>
+		<section class="container">
+			<div class="error_left">
+				<img id="character_image" src="/img/wiz.png" />
+			</div>
+			<div class="error_right">
+				<div id="error_right_container">
+					<h1 id="error_title">Uh oh! Something went wrong!</h1>
+					<h3 id="error_message"><%= message %></h3>
+					<p id="<%= errorButton %>">
+						<span>Go back</span>
+					</p>
+				</div>
+			</div>
+		</section>
+	</body>
+	<script type="module" src="/js/bundle.min.js" nonce="<%= nonce %>"></script>
+</html>
