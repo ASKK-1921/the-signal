@@ -1,0 +1,7 @@
+{
+	"404": "(404) We couldn't find this page. Please go back and try again!",
+	"/": {
+		"hello_world": "Hello world!",
+		"goodbye_world": "Goodbye world!!!"
+	}
+}
