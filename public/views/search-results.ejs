@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Search Results &middot; The Signal</title>
+	<link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+	<%- include('partials/header') %>
+
+	<main class="main">
+		<section class="articles">
+			<div class="container">
+				<h2 class="section-title">
+					Search Results for "<%= query %>"
+					<% if (category) { %>
+						(<%= category %>)
+					<% } %>
+				</h2>
+
+				<% if (articles.length === 0) { %>
+					<p style="color: #94a3b8; margin-top: 2rem;">No articles found matching your search.</p>
+				<% } else { %>
+					<div class="article-grid">
+						<% articles.forEach(article => { %>
+							<a href="/article/<%= article.slug %>" class="article-card-link">
+								<article class="article-card">
+									<img src="<%= article.image || '/img/default-article.jpg' %>" alt="<%= article.headline %>" class="article-card__img">
+									<div class="article-card__content">
+										<span class="article-card__category"><%= article.category %></span>
+										<h3 class="article-card__title"><%= article.headline %></h3>
+										<p class="article-card__summary"><%= article.summary %></p>
+										<div class="article-card__meta">
+											<span class="article-card__source"><%= article.source && article.source.name %></span>
+											<span class="article-card__date"><%= new Date(article.publishedAt).toLocaleDateString() %></span>
+										</div>
+									</div>
+								</article>
+							</a>
+						<% }) %>
+					</div>
+				<% } %>
+			</div>
+		</section>
+	</main>
+
+	<%- include('partials/footer') %>
+</body>
+</html>
