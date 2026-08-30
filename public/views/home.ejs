@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>The Signal &middot; Neutral News</title>
+	<link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+	<header class="header">
+		<div class="container">
+			<a href="/" class="logo">The Signal</a>
+			<nav class="nav">
+				<ul class="nav__list">
+					<li><a href="/">Home</a></li>
+					<li><a href="/about">About</a></li>
+				</ul>
+			</nav>
+		</div>
+	</header>
+
+	<!-- Google AdSense Placeholder - Top Banner -->
+	<div class="ad-slot ad-slot--top" data-ad-format="banner">
+		<span class="ad-label">Ad</span>
+	</div>
+
+	<main class="main">
+		<section class="hero">
+			<div class="container">
+				<h1 class="hero__title">Neutral. Verified. Clear.</h1>
+				<p class="hero__subtitle">Your source for bias-free news reporting.</p>
+			</div>
+		</section>
+
+		<!-- Google AdSense Placeholder - Sidebar/Mid-content -->
+		<div class="ad-slot ad-slot--sidebar" data-ad-format="rectangle">
+			<span class="ad-label">Ad</span>
+		</div>
+
+		<section class="articles">
+			<div class="container">
+				<div class="articles__header">
+					<h2 class="section-title">Latest</h2>
+					<!-- Category Filter -->
+					<ul class="category-filter" id="categoryFilter">
+						<li><a href="/" class="category-filter__link active" data-category="all">All</a></li>
+						<li><a href="/?category=politics" class="category-filter__link" data-category="politics">Politics</a></li>
+						<li><a href="/?category=technology" class="category-filter__link" data-category="technology">Technology</a></li>
+						<li><a href="/?category=business" class="category-filter__link" data-category="business">Business</a></li>
+						<li><a href="/?category=science" class="category-filter__link" data-category="science">Science</a></li>
+						<li><a href="/?category=health" class="category-filter__link" data-category="health">Health</a></li>
+						<li><a href="/?category=sports" class="category-filter__link" data-category="sports">Sports</a></li>
+						<li><a href="/?category=world" class="category-filter__link" data-category="world">World</a></li>
+					</ul>
+				</div>
+
+				<div class="article-grid" id="articleGrid">
+					<% articles.forEach(article => { %>
+						<a href="/article/<%= article.slug %>" class="article-card-link">
+							<article class="article-card" data-category="<%= article.category %>">
+								<img src="<%= article.image || '/img/default-article.jpg' %>" alt="<%= article.headline %>" class="article-card__img">
+								<div class="article-card__content">
+									<span class="article-card__category"><%= article.category %></span>
+									<h3 class="article-card__title"><%= article.headline %></h3>
+									<p class="article-card__summary"><%= article.summary %></p>
+									<div class="article-card__meta">
+										<span class="article-card__source"><%= article.source && article.source.name %></span>
+										<span class="article-card__date"><%= new Date(article.publishedAt).toLocaleDateString() %></span>
+										<span class="article-card__score">Neutrality: <%= article.neutralityScore %>%</span>
+									</div>
+								</div>
+							</article>
+						</a>
+					<% }) %>
+				</div>
+			</div>
+		</section>
+
+		<!-- Google AdSense Placeholder - Between Articles -->
+		<div class="ad-slot ad-slot--in-content" data-ad-format="auto">
+			<span class="ad-label">Ad</span>
+		</div>
+	</main>
+
+	<footer class="footer">
+		<div class="container">
+			<p>&copy; 2026 The Signal. All rights reserved.</p>
+		</div>
+	</footer>
+
+	<script>
+		// Client-side category filtering
+		document.addEventListener('DOMContentLoaded', function() {
+			const filterLinks = document.querySelectorAll('.category-filter__link');
+			const articleCards = document.querySelectorAll('.article-card');
+
+			filterLinks.forEach(link => {
+				link.addEventListener('click', function(e) {
+					e.preventDefault();
+
+					// Update active state
+					filterLinks.forEach(l => l.classList.remove('active'));
+					this.classList.add('active');
+
+					const category = this.dataset.category;
+
+					// Filter articles
+					articleCards.forEach(card => {
+						if (category === 'all' || card.dataset.category === category) {
+							card.style.display = '';
+						} else {
+							card.style.display = 'none';
+						}
+					});
+				});
+			});
+		});
+	</script>
+</body>
+</html>
