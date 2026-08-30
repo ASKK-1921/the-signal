@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Dashboard &middot; The Signal Admin</title>
+	<link rel="stylesheet" href="/css/main.css">
+	<style>
+		.dashboard { padding: 2rem 0; }
+		.dashboard__cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
+		.dashboard__card { background: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 1.5rem; text-align: center; }
+		.dashboard__card-number { font-size: 2rem; font-weight: 800; color: #38bdf8; }
+		.dashboard__card-label { font-size: 0.85rem; color: #94a3b8; margin-top: 0.25rem; }
+		.dashboard__actions { margin-bottom: 2rem; }
+		.dashboard__actions a { display: inline-block; padding: 0.5rem 1rem; background: #38bdf8; color: #0f172a; border-radius: 8px; font-weight: 600; margin-right: 0.5rem; }
+		.admin-table { width: 100%; border-collapse: collapse; }
+		.admin-table th, .admin-table td { padding: 0.75rem; text-align: left; border-bottom: 1px solid #334155; }
+		.admin-table th { color: #94a3b8; font-weight: 600; font-size: 0.8rem; text-transform: uppercase; }
+		.admin-badge { display: inline-block; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600; }
+		.admin-badge.draft { background: rgba(245, 158, 11, 0.2); color: #f59e0b; }
+		.admin-badge.published { background: rgba(16, 185, 129, 0.2); color: #10b981; }
+		.admin-badge.archived { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
+	</style>
+</head>
+<body>
+	<%- include('../partials/header') %>
+
+	<main class="main">
+		<div class="container dashboard">
+			<h1 style="margin-bottom: 2rem;">Admin Dashboard</h1>
+
+			<div class="dashboard__cards">
+				<div class="dashboard__card">
+					<div class="dashboard__card-number">9</div>
+					<div class="dashboard__card-label">Total Articles</div>
+				</div>
+				<div class="dashboard__card">
+					<div class="dashboard__card-number">5</div>
+					<div class="dashboard__card-label">Sources</div>
+				</div>
+				<div class="dashboard__card">
+					<div class="dashboard__card-number">42</div>
+					<div class="dashboard__card-label">Avg Neutrality</div>
+				</div>
+			</div>
+
+			<div class="dashboard__actions">
+				<a href="/admin/articles/new">New Article</a>
+				<a href="/admin/sources">Manage Sources</a>
+				<a href="/admin/logout">Logout</a>
+			</div>
+
+			<table class="admin-table">
+				<thead>
+					<tr>
+						<th>Headline</th>
+						<th>Category</th>
+						<th>Source</th>
+						<th>Score</th>
+						<th>Date</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>Global Summit Reaches Historic Climate Agreement</td>
+						<td>World</td>
+						<td>Reuters UK</td>
+						<td>83</td>
+						<td>Aug 28, 2025</td>
+					</tr>
+					<tr>
+						<td>AI Regulation Bill Passes Key Senate Committee</td>
+						<td>Technology</td>
+						<td>BBC News</td>
+						<td>91</td>
+						<td>Aug 27, 2025</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</main>
+
+	<%- include('../partials/footer') %>
+</body>
+</html>
