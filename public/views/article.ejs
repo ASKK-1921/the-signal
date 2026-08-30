@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title><%= article.headline %> &middot; The Signal</title>
+	<link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+	<%- include('partials/header') %>
+
+	<!-- Google AdSense Placeholder - Article Top -->
+	<div class="ad-slot ad-slot--article-top" data-ad-format="banner">
+		<span class="ad-label">Ad</span>
+	</div>
+
+	<main class="main">
+		<article class="article-detail">
+			<div class="container">
+				<div class="article-detail__meta">
+					<span class="category-badge"><%= article.category.charAt(0).toUpperCase() + article.category.slice(1) %></span>
+					<span class="article-detail__source">Source: <%= article.source && article.source.name %></span>
+					<span class="article-detail__date"><%= new Date(article.publishedAt).toLocaleDateString('en-US', { 
+						year: 'numeric', 
+						month: 'long', 
+						day: 'numeric' 
+					}) %></span>
+					<span class="neutrality-badge">Neutrality Score: <%= article.neutralityScore %>%</span>
+				</div>
+				<h1 class="article-detail__title"><%= article.headline %></h1>
+				<% if (article.image) { %>
+					<img src="<%= article.image %>" alt="<%= article.headline %>" class="article-detail__img">
+				<% } %>
+
+				<!-- Google AdSense Placeholder - Article Mid-content -->
+				<div class="ad-slot ad-slot--article-mid" data-ad-format="auto">
+					<span class="ad-label">Ad</span>
+				</div>
+
+				<div class="article-detail__content">
+					<p><%= article.summary %></p>
+					<%- article.content %>
+				</div>
+
+				<!-- Google AdSense Placeholder - Article Bottom -->
+				<div class="ad-slot ad-slot--article-bottom" data-ad-format="banner">
+					<span class="ad-label">Ad</span>
+				</div>
+
+				<% if (article.url) { %>
+					<div class="article-detail__source-link">
+						<a href="<%= article.url %>" target="_blank" rel="noopener noreferrer">Read the original source at <%= article.source && article.source.name %> &rarr;</a>
+					</div>
+				<% } %>
+			</div>
+		</article>
+	</main>
+
+	<%- include('partials/footer') %>
+</body>
+</html>
