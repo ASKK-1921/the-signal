@@ -1,6 +1,6 @@
 // Article Model
 const mongoose = require('mongoose');
-const slugify = require('slug');
+const slugify = require('slug').default;
 
 const articleSchema = new mongoose.Schema({
 	headline: {
