@@ -198,6 +198,7 @@ ul {
 	color: $color-text-muted;
 	border: 1px solid $color-border;
 	transition: all 0.2s;
+	cursor: pointer;
 
 	&:hover {
 		color: $color-text;
