@@ -8,6 +8,7 @@ dotenv.config({ path: './config.env' });
 const Article = require('../models/articleModel');
 const Source = require('../models/sourceModel');
 const Category = require('../models/categoryModel');
+const slugify = require('slug').default;
 
 // Set up DB connection
 mongoose.set('strictQuery', false);
@@ -176,6 +177,7 @@ const articles = (sourceIds) => {
 		source: pickRandom(sourceIds),
 		neutralityScore: Math.floor(Math.random() * 20) + 80,
 		publishedAt: new Date(Date.now() - i * 86400000),
+		slug: slugify(a.headline, { lower: true }),
 	}));
 };
 
