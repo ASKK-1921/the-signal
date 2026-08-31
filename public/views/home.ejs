@@ -7,17 +7,7 @@
 	<link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
-	<header class="header">
-		<div class="container">
-			<a href="/" class="logo">The Signal</a>
-			<nav class="nav">
-				<ul class="nav__list">
-					<li><a href="/">Home</a></li>
-					<li><a href="/about">About</a></li>
-				</ul>
-			</nav>
-		</div>
-	</header>
+	<%- include('partials/header') %>
 
 	<!-- Google AdSense Placeholder - Top Banner -->
 	<div class="ad-slot ad-slot--top" data-ad-format="banner">
@@ -43,14 +33,14 @@
 					<h2 class="section-title">Latest</h2>
 					<!-- Category Filter -->
 					<ul class="category-filter" id="categoryFilter">
-						<li><a href="/" class="category-filter__link active" data-category="all">All</a></li>
-						<li><a href="/?category=politics" class="category-filter__link" data-category="politics">Politics</a></li>
-						<li><a href="/?category=technology" class="category-filter__link" data-category="technology">Technology</a></li>
-						<li><a href="/?category=business" class="category-filter__link" data-category="business">Business</a></li>
-						<li><a href="/?category=science" class="category-filter__link" data-category="science">Science</a></li>
-						<li><a href="/?category=health" class="category-filter__link" data-category="health">Health</a></li>
-						<li><a href="/?category=sports" class="category-filter__link" data-category="sports">Sports</a></li>
-						<li><a href="/?category=world" class="category-filter__link" data-category="world">World</a></li>
+						<li><button type="button" class="category-filter__link active" data-category="all">All</button></li>
+						<li><button type="button" class="category-filter__link" data-category="politics">Politics</button></li>
+						<li><button type="button" class="category-filter__link" data-category="technology">Technology</button></li>
+						<li><button type="button" class="category-filter__link" data-category="business">Business</button></li>
+						<li><button type="button" class="category-filter__link" data-category="science">Science</button></li>
+						<li><button type="button" class="category-filter__link" data-category="health">Health</button></li>
+						<li><button type="button" class="category-filter__link" data-category="sports">Sports</button></li>
+						<li><button type="button" class="category-filter__link" data-category="world">World</button></li>
 					</ul>
 				</div>
 
@@ -82,39 +72,67 @@
 		</div>
 	</main>
 
-	<footer class="footer">
-		<div class="container">
-			<p>&copy; 2026 The Signal. All rights reserved.</p>
-		</div>
-	</footer>
+	<%- include('partials/footer') %>
 
 	<script>
 		// Client-side category filtering
-		document.addEventListener('DOMContentLoaded', function() {
+		(function() {
 			const filterLinks = document.querySelectorAll('.category-filter__link');
-			const articleCards = document.querySelectorAll('.article-card');
+			const articleLinks = document.querySelectorAll('.article-card-link');
 
+			// Check URL query param on page load
+			const urlParams = new URLSearchParams(window.location.search);
+			const initialCategory = urlParams.get('category') || 'all';
+
+			// Set initial active state based on URL param
 			filterLinks.forEach(link => {
-				link.addEventListener('click', function(e) {
-					e.preventDefault();
+				if (link.dataset.category === initialCategory) {
+					link.classList.add('active');
+				} else {
+					link.classList.remove('active');
+				}
+			});
 
+			// Filter on click
+			filterLinks.forEach(link => {
+				link.addEventListener('click', function() {
 					// Update active state
 					filterLinks.forEach(l => l.classList.remove('active'));
 					this.classList.add('active');
 
 					const category = this.dataset.category;
 
+					// Update URL (no page reload)
+					const url = new URL(window.location);
+					if (category === 'all') {
+						url.searchParams.delete('category');
+					} else {
+						url.searchParams.set('category', category);
+					}
+					window.history.pushState({}, '', url);
+
 					// Filter articles
-					articleCards.forEach(card => {
+					articleLinks.forEach(cardLink => {
+						const card = cardLink.querySelector('.article-card');
 						if (category === 'all' || card.dataset.category === category) {
-							card.style.display = '';
+							cardLink.style.display = '';
 						} else {
-							card.style.display = 'none';
+							cardLink.style.display = 'none';
 						}
 					});
 				});
 			});
-		});
+
+			// Apply initial filter on page load
+			if (initialCategory !== 'all') {
+				articleLinks.forEach(cardLink => {
+					const card = cardLink.querySelector('.article-card');
+					if (card.dataset.category !== initialCategory) {
+						cardLink.style.display = 'none';
+					}
+				});
+			}
+		})();
 	</script>
 </body>
 </html>
