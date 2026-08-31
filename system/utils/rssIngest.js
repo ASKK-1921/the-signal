@@ -8,8 +8,9 @@ const Parser = require('rss-parser');
 
 dotenv.config({ path: './config.env' });
 
-const Article = require('./models/articleModel');
-const Source = require('./models/sourceModel');
+const Article = require('../models/articleModel');
+const Source = require('../models/sourceModel');
+const slugify = require('slug').default;
 
 // Connect to MongoDB
 mongoose.set('strictQuery', false);
@@ -25,12 +26,12 @@ const FEEDS = [
 		category: 'world',
 	},
 	{
-		sourceName: 'Reuters World',
+		sourceName: 'Reuters',
 		url: 'http://feeds.reuters.com/reuters/worldNews',
 		category: 'world',
 	},
 	{
-		sourceName: 'NPR Top Stories',
+		sourceName: 'NPR',
 		url: 'http://www.npr.org/rss/rss.php?id=1001',
 		category: 'world',
 	},
@@ -98,6 +99,7 @@ async function fetchFeed(feedConfig) {
 
 			articles.push({
 				headline: item.title || 'Untitled',
+				slug: slugify(item.title || 'untitled', { lower: true }),
 				summary: stripHtml(content) || (item.summary ? item.summary.substring(0, 500) : '') || '',
 				content: content || item.contentSnippet || '',
 				category: feedConfig.category,
