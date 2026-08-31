@@ -68,11 +68,12 @@ app.use((req, res, next) => {
 app.use(
 	helmet.contentSecurityPolicy({
 		directives: {
-			defaultSrc: ["'self'", 'https:', 'http:', 'data:', 'ws:', 'wss:', 'blob:'],
-			baseUri: ["'self'"],
-			fontSrc: ["'self'", 'https:', 'http:', 'data:'],
-			scriptSrc: ["'self'", (req, res) => `'nonce-${res.locals.nonce}'`, 'https:', 'http:', 'blob:'],
-			styleSrc: ["'self'", "'unsafe-inline'", 'https:', 'http:'],
+		defaultSrc: ["'self'", 'https:', 'http:', 'data:', 'ws:', 'wss:', 'blob:'],
+		baseUri: ["'self'"],
+		fontSrc: ["'self'", 'https:', 'http:', 'data:'],
+		imgSrc: ["'self'", 'https:', 'http:', 'data:'],
+		scriptSrc: ["'self'", (req, res) => `'nonce-${res.locals.nonce}'`, 'https:', 'http:', 'blob:'],
+		styleSrc: ["'self'", "'unsafe-inline'", 'https:', 'http:'],
 		},
 	})
 );
