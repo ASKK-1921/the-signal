@@ -35,14 +35,14 @@
 			window.history.pushState({}, '', url);
 
 			// Filter articles
-			articleLinks.forEach(cardLink => {
-				const card = cardLink.querySelector('.article-card');
-				if (category === 'all' || card.dataset.category === category) {
-					cardLink.style.display = '';
-				} else {
-					cardLink.style.display = 'none';
-				}
-			});
+				articleLinks.forEach(cardLink => {
+					const card = cardLink.querySelector('.article-card');
+					if (category === 'all' || card.dataset.category === category) {
+						cardLink.style.display = '';
+					} else {
+						cardLink.style.display = 'none';
+					}
+				});
 		});
 	});
 
